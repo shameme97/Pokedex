@@ -1,8 +1,10 @@
-package com.example.demo;
+package com.example.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class BaseStats {
     private int hp;
     private int attack;

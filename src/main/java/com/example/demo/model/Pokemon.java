@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.model;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 import org.springframework.data.annotation.Id;
@@ -20,5 +21,5 @@ public class Pokemon {
     private String species;
     private Abilities abilities;
     private BaseStats baseStats;
-    private ZonedDateTime added;
+    private LocalDateTime added;
 }
