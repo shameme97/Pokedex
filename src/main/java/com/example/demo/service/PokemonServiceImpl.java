@@ -43,14 +43,34 @@ public class PokemonServiceImpl implements PokemonService{
         Pokemon updatedPokemon = findPokemon.orElse(null);
         if (updatedPokemon == null){  return "Pokemon not found!";  }
         else{
-            if (pokemon.getName() != null){  updatedPokemon.setName(pokemon.getName());  }
-            if (pokemon.getType() != null){  updatedPokemon.setType(pokemon.getType());  }
-            if (pokemon.getWeakness() != null){  updatedPokemon.setWeakness(pokemon.getWeakness());  }
-            if (pokemon.getSpecies() != null){  updatedPokemon.setSpecies(pokemon.getSpecies());  }
-            if (pokemon.getWeight() != 0.0){  updatedPokemon.setWeight(pokemon.getWeight());  }
-            if (pokemon.getHeight() != 0.0){  updatedPokemon.setHeight(pokemon.getHeight());  }
+            String changedResults = "Entry " + updatedPokemon.getId() + ": " + updatedPokemon.getName();
+            if (pokemon.getName() != null){
+                changedResults += "\nName updated to " + pokemon.getName() + " from " + updatedPokemon.getName();
+                updatedPokemon.setName(pokemon.getName());
+            }
+            if (pokemon.getType() != null){
+                changedResults += "\nType updated to " + pokemon.getType() + " from " + updatedPokemon.getType();
+                updatedPokemon.setType(pokemon.getType());
+            }
+            if (pokemon.getWeakness() != null){
+                changedResults += "\nWeakness updated to " + pokemon.getWeakness() + " from " + updatedPokemon.getWeakness();
+                updatedPokemon.setWeakness(pokemon.getWeakness());
+            }
+            if (pokemon.getSpecies() != null){
+                changedResults += "\nSpecies updated to " + pokemon.getSpecies() + " from " + updatedPokemon.getSpecies();
+                updatedPokemon.setSpecies(pokemon.getSpecies());
+            }
+            if (pokemon.getWeight() != 0.0){
+                changedResults += "\nWeight updated to " + pokemon.getWeight() + " from " + updatedPokemon.getWeight();
+                updatedPokemon.setWeight(pokemon.getWeight());
+            }
+            if (pokemon.getHeight() != 0.0){
+                changedResults += "\nHeight updated to " + pokemon.getHeight() + " from " + updatedPokemon.getHeight();
+                updatedPokemon.setHeight(pokemon.getHeight());
+            }
             pokemonRepository.save(updatedPokemon);
-            return "Entry " + updatedPokemon.getId() + " updated in Pokedex.\n\n" + showPokemon(updatedPokemon);
+            changedResults += "\n\n============UPDATED ENTRY============\n";
+            return changedResults + showPokemon(updatedPokemon);
         }
 
     }
