@@ -5,9 +5,9 @@ import com.example.demo.model.Pokemon;
 import java.util.List;
 
 public interface PokemonService {
-    public List<Pokemon> getAllPokemon();
+    public String getAllPokemon();
     public String addPokemon(Pokemon pokemon);
     public String deletePokemon(Pokemon pokemon);
-    public Pokemon updatePokemon(Pokemon pokemon);
+    public String updatePokemon(Pokemon pokemon);
     public String showPokemon(Pokemon pokemon);
 }
