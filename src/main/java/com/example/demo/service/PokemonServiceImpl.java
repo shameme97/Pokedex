@@ -1,6 +1,7 @@
 package com.example.demo.service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.demo.model.Pokemon;
 import com.example.demo.repository.PokemonRepository;
@@ -38,29 +39,56 @@ public class PokemonServiceImpl implements PokemonService{
 
     @Override
     public String updatePokemon(Pokemon pokemon) {
-        pokemonRepository.save(pokemon);
-        return "Entry " + pokemon.getId() + " updated in Pokedex.\n" + showPokemon(pokemon);
+        Optional<Pokemon> findPokemon = pokemonRepository.findById(pokemon.getId());
+        Pokemon updatedPokemon = findPokemon.orElse(null);
+        if (updatedPokemon == null){  return "Pokemon not found!";  }
+        else{
+            if (pokemon.getName() != null){  updatedPokemon.setName(pokemon.getName());  }
+            if (pokemon.getType() != null){  updatedPokemon.setType(pokemon.getType());  }
+            if (pokemon.getWeakness() != null){  updatedPokemon.setWeakness(pokemon.getWeakness());  }
+            if (pokemon.getSpecies() != null){  updatedPokemon.setSpecies(pokemon.getSpecies());  }
+            if (pokemon.getWeight() != 0.0){  updatedPokemon.setWeight(pokemon.getWeight());  }
+            if (pokemon.getHeight() != 0.0){  updatedPokemon.setHeight(pokemon.getHeight());  }
+            pokemonRepository.save(updatedPokemon);
+            return "Entry " + updatedPokemon.getId() + " updated in Pokedex.\n\n" + showPokemon(updatedPokemon);
+        }
+
     }
 
     @Override
-    public String showPokemon(Pokemon pokemon) {
-        return null;
+    public String findPokemon(String pokemonName) {
+        List<Pokemon>pokemonList = new ArrayList<Pokemon>();
+        pokemonList = pokemonRepository.findAll();
+        for (Pokemon pokemon : pokemonList) {
+            if (pokemon.getName().equals(pokemonName)) {
+                return showPokemon(pokemon);
+            }
+        }
+        return "Pokemon not found!";
     }
 
-    public String info(Pokemon pokemon){
-        return "===== Pokemon INFO =====\n Pokemon Name : " + pokemon.getName();
+    public String showPokemon(Pokemon pokemon){
+        String pokemonInfo = "";
+        pokemonInfo += "Entry ID: " + pokemon.getId() + "\n";
+        pokemonInfo += "Name: " + pokemon.getName() + "\n";
+        pokemonInfo += "Type: " + pokemon.getType() + "\n";
+        pokemonInfo += "Weakness: " + pokemon.getWeakness() + "\n";
+        pokemonInfo += "Species: " + pokemon.getSpecies() + "\n";
+        pokemonInfo += "Height: " + pokemon.getHeight() + " feet\n";
+        pokemonInfo += "Weight: " + pokemon.getWeight() + " kg\n";
+        return pokemonInfo;
     }
 
     public String showAllPokemon(List<Pokemon> pokemonList){
         String pokedexEntries =  "=================POKEDEX=================\n";
-        for (int i=0; i<pokemonList.size(); ++i){
-            pokedexEntries += "Entry ID: " + pokemonList.get(i).getId() + "\n";
-            pokedexEntries += "Name: " + pokemonList.get(i).getName() + "\n";
-            pokedexEntries += "Type: " + pokemonList.get(i).getType() + "\n";
-            pokedexEntries += "Weakness: " + pokemonList.get(i).getWeakness() + "\n";
-            pokedexEntries += "Species: " + pokemonList.get(i).getSpecies() + "\n";
-            pokedexEntries += "Height: " + pokemonList.get(i).getHeight() + " feet\n";
-            pokedexEntries += "Weight: " + pokemonList.get(i).getWeight() + " kg\n";
+        for (Pokemon pokemon : pokemonList) {
+            pokedexEntries += "Entry ID: " + pokemon.getId() + "\n";
+            pokedexEntries += "Name: " + pokemon.getName() + "\n";
+            pokedexEntries += "Type: " + pokemon.getType() + "\n";
+            pokedexEntries += "Weakness: " + pokemon.getWeakness() + "\n";
+            pokedexEntries += "Species: " + pokemon.getSpecies() + "\n";
+            pokedexEntries += "Height: " + pokemon.getHeight() + " feet\n";
+            pokedexEntries += "Weight: " + pokemon.getWeight() + " kg\n";
             pokedexEntries += "-----------------------------------------\n";
         }
         return pokedexEntries;

@@ -40,7 +40,7 @@ public class PokemonController {
     }
 
     @GetMapping(value = "/show/{pokemonName}")
-    public String showPokemon(@PathVariable("pokemonName") Pokemon pokemon){
-        return pokemonService.showPokemon(pokemon);
+    public String findPokemon(@PathVariable("pokemonName") String pokemonName){
+        return pokemonService.findPokemon(pokemonName);
     }
 }

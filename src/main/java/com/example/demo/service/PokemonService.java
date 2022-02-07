@@ -9,5 +9,5 @@ public interface PokemonService {
     public String addPokemon(Pokemon pokemon);
     public String deletePokemon(Pokemon pokemon);
     public String updatePokemon(Pokemon pokemon);
-    public String showPokemon(Pokemon pokemon);
+    public String findPokemon(String pokemonName);
 }
