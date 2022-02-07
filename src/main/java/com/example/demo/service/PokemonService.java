@@ -4,6 +4,7 @@ import java.util.List;
 import com.example.demo.model.Pokemon;
 import com.example.demo.repository.PokemonRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -12,9 +13,22 @@ import lombok.AllArgsConstructor;
 @Service
 public class PokemonService {
 
-    private final PokemonRepository pokemonRepository;
+    @Autowired
+    public PokemonRepository pokemonRepository;
 
     public List<Pokemon> getAllPokemon(){
         return pokemonRepository.findAll();
+    }
+    // public String getAllPokemon(){
+    //     return "hi";
+    // }
+
+    public String addPokemon(Pokemon pokemon){
+        pokemonRepository.insert(pokemon);
+        return "Pokemon added to Pokedex\n" + info(pokemon);
+    }
+
+    public String info(Pokemon pokemon){
+        return "===== Pokemon INFO =====\n Pokemon Name : " + pokemon.getPokemonName();
     }
 }
