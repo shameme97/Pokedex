@@ -20,28 +20,4 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner runner(PokemonRepository pokemonRepository){
-		return (args) -> {
-			Abilities abilities = new Abilities(
-				"Overgrow",
-				"Chlorophyll"
-			);
-			BaseStats baseStats = new BaseStats(
-				45, 49, 49, 65, 65, 45
-			);
-			Pokemon pokemon = new Pokemon(
-				"Bulbasaur",
-				"Grass",
-				"Fire, Ice, Psychic, Flying",
-				2.04,
-				15.2,
-				"Seed",
-				abilities,
-				baseStats
-			);
-			pokemonRepository.insert(pokemon);
-		};
-	}
-
 }

@@ -19,25 +19,8 @@ public class Pokemon {
     private double height;
     private double weight;
     private String species;
-    private Abilities abilities;
-    private BaseStats baseStats;
+//    private Abilities abilities;
+//    private BaseStats baseStats;
 
-    public Pokemon(String name, String type, String weakness, double height,
-    double weight, String species, Abilities abilities, BaseStats baseStats){
-        this.name = name;
-        this.type = type;
-        this.weakness = weakness;
-        this.height = height;
-        this.weight = weight;
-        this.species = species;
-        this.abilities = abilities;
-        this.baseStats = baseStats;
-    }
 
-    // public Pokemon(String string, String string2, String string3, double d, double e, String string4) {
-    // }
-
-    public String getPokemonName(){
-        return name;
-    }
 }

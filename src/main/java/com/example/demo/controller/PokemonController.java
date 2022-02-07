@@ -28,10 +28,7 @@ public class PokemonController {
     public List<Pokemon> fetchAllPokemon(){
         return pokemonService.getAllPokemon();
     }
-    // @GetMapping(value="/all")
-    // public String fetchAllPokemon(){
-    //     return pokemonService.getAllPokemon();
-    // }
+
 
 
     @PostMapping(value = "/add")

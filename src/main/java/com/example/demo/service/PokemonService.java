@@ -1,34 +1,13 @@
 package com.example.demo.service;
-import java.util.List;
 
 import com.example.demo.model.Pokemon;
-import com.example.demo.repository.PokemonRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
-@Service
-public class PokemonService {
-
-    @Autowired
-    public PokemonRepository pokemonRepository;
-
-    public List<Pokemon> getAllPokemon(){
-        return pokemonRepository.findAll();
-    }
-    // public String getAllPokemon(){
-    //     return "hi";
-    // }
-
-    public String addPokemon(Pokemon pokemon){
-        pokemonRepository.insert(pokemon);
-        return "Pokemon added to Pokedex\n" + info(pokemon);
-    }
-
-    public String info(Pokemon pokemon){
-        return "===== Pokemon INFO =====\n Pokemon Name : " + pokemon.getPokemonName();
-    }
+public interface PokemonService {
+    public List<Pokemon> getAllPokemon();
+    public String addPokemon(Pokemon pokemon);
+    public String deletePokemon(Pokemon pokemon);
+    public Pokemon updatePokemon(Pokemon pokemon);
+    public String showPokemon(Pokemon pokemon);
 }
