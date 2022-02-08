@@ -14,6 +14,7 @@ used for this project is MongoDB NoSQL.
   - Spring Boot
   - mongoDB
   - Postman
+  - Docker
   - IntelliJ (Editor)
   
 ## Functionalities
