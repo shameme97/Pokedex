@@ -31,7 +31,19 @@ Server port can be changed at this directory - `src > main > resources > applica
        "weakness":"Fire, Ice, Psychic, Flying",
        "height": 2.04,
        "weight": 15.2,
-       "species": "Seed"
+       "species": "Seed",
+       "abilities": {
+         "ability": "Overgrow",
+         "hiddenAbility": "Chlorophyll"
+       },
+       "baseStats": {
+           "hp": 45,
+           "attack": 49,
+           "defense": 49,
+           "spAtk": 65,
+           "spDef": 65,
+           "speed": 45
+       }
       }`
       
     + **GET**: <http://localhost:4021/pokemonapi/all> : Get list of all Pokemon in Pokedex
@@ -44,7 +56,10 @@ Server port can be changed at this directory - `src > main > resources > applica
        "id": 1,
        "weakness":"Water, Ground, Rock",
        "height": 3.04,
-       "weight": 12.2,
+       "baseStats": {
+          "hp": 39,
+          "speed": 43
+        }
       }`
       
     + **GET**: <http://localhost:4021/pokemonapi/show/{pokemonName}> : Get Pokemon by its Name
