@@ -19,8 +19,8 @@ public class Pokemon {
     private double height;
     private double weight;
     private String species;
-//    private Abilities abilities;
-//    private BaseStats baseStats;
+    private Abilities abilities;
+    private BaseStats baseStats;
 
 
 }

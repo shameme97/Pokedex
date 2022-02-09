@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.model.Abilities;
+import com.example.demo.model.BaseStats;
 import com.example.demo.model.Pokemon;
 import com.example.demo.repository.PokemonRepository;
 
@@ -43,34 +45,59 @@ public class PokemonServiceImpl implements PokemonService{
         Pokemon updatedPokemon = findPokemon.orElse(null);
         if (updatedPokemon == null){  return "Pokemon not found!";  }
         else{
-            String changedResults = "Entry " + updatedPokemon.getId() + ": " + updatedPokemon.getName();
             if (pokemon.getName() != null){
-                changedResults += "\nName updated to " + pokemon.getName() + " from " + updatedPokemon.getName();
                 updatedPokemon.setName(pokemon.getName());
             }
             if (pokemon.getType() != null){
-                changedResults += "\nType updated to " + pokemon.getType() + " from " + updatedPokemon.getType();
                 updatedPokemon.setType(pokemon.getType());
             }
             if (pokemon.getWeakness() != null){
-                changedResults += "\nWeakness updated to " + pokemon.getWeakness() + " from " + updatedPokemon.getWeakness();
                 updatedPokemon.setWeakness(pokemon.getWeakness());
             }
             if (pokemon.getSpecies() != null){
-                changedResults += "\nSpecies updated to " + pokemon.getSpecies() + " from " + updatedPokemon.getSpecies();
                 updatedPokemon.setSpecies(pokemon.getSpecies());
             }
             if (pokemon.getWeight() != 0.0){
-                changedResults += "\nWeight updated to " + pokemon.getWeight() + " from " + updatedPokemon.getWeight();
                 updatedPokemon.setWeight(pokemon.getWeight());
             }
             if (pokemon.getHeight() != 0.0){
-                changedResults += "\nHeight updated to " + pokemon.getHeight() + " from " + updatedPokemon.getHeight();
                 updatedPokemon.setHeight(pokemon.getHeight());
             }
+            if (pokemon.getAbilities() != null){
+                Abilities ability = updatedPokemon.getAbilities();
+                if (pokemon.getAbilities().getAbility() != null){
+                    ability.setAbility(pokemon.getAbilities().getAbility());
+                }
+                if (pokemon.getAbilities().getHiddenAbility() != null){
+                    ability.setAbility(pokemon.getAbilities().getHiddenAbility());
+                }
+                updatedPokemon.setAbilities(ability);
+            }
+            if (pokemon.getBaseStats() != null){
+                BaseStats newBaseStat = pokemon.getBaseStats();
+                BaseStats updatedBaseStat = updatedPokemon.getBaseStats();
+                if (newBaseStat.getHp() != 0){
+                    updatedBaseStat.setHp(newBaseStat.getHp());
+                }
+                if (newBaseStat.getAttack() != 0){
+                    updatedBaseStat.setAttack(newBaseStat.getAttack());
+                }
+                if (newBaseStat.getDefense() != 0){
+                    updatedBaseStat.setDefense(newBaseStat.getDefense());
+                }
+                if (newBaseStat.getSpAtk() != 0){
+                    updatedBaseStat.setSpAtk(newBaseStat.getSpAtk());
+                }
+                if (newBaseStat.getSpDef() != 0){
+                    updatedBaseStat.setSpDef(newBaseStat.getSpDef());
+                }
+                if (newBaseStat.getSpeed() != 0){
+                    updatedBaseStat.setSpeed(newBaseStat.getSpeed());
+                }
+                updatedPokemon.setBaseStats(updatedBaseStat);
+            }
             pokemonRepository.save(updatedPokemon);
-            changedResults += "\n\n============UPDATED ENTRY============\n";
-            return changedResults + showPokemon(updatedPokemon);
+            return "============UPDATED ENTRY============\n" + showPokemon(updatedPokemon);
         }
 
     }
@@ -88,6 +115,8 @@ public class PokemonServiceImpl implements PokemonService{
     }
 
     public String showPokemon(Pokemon pokemon){
+        String ability = pokemon.getAbilities().getAbility();
+        String hiddenAbility = pokemon.getAbilities().getHiddenAbility();
         String pokemonInfo = "";
         pokemonInfo += "Entry ID: " + pokemon.getId() + "\n";
         pokemonInfo += "Name: " + pokemon.getName() + "\n";
@@ -96,12 +125,28 @@ public class PokemonServiceImpl implements PokemonService{
         pokemonInfo += "Species: " + pokemon.getSpecies() + "\n";
         pokemonInfo += "Height: " + pokemon.getHeight() + " feet\n";
         pokemonInfo += "Weight: " + pokemon.getWeight() + " kg\n";
+        pokemonInfo += "Ability: " + ability + "\n";
+        pokemonInfo += "Hidden Ability: " + hiddenAbility + "\n";
+        pokemonInfo += getStringBaseStats(pokemon.getBaseStats()) + "\n";
         return pokemonInfo;
+    }
+
+    public String getStringBaseStats(BaseStats baseStats){
+        String showBaseStats = "----Base Stats:----";
+        showBaseStats += "\nHP: " + baseStats.getHp();
+        showBaseStats += "\nAttack: " + baseStats.getAttack();
+        showBaseStats += "\nDefense: " + baseStats.getDefense();
+        showBaseStats += "\nSpAtk: " + baseStats.getSpAtk();
+        showBaseStats += "\nSpDef: " + baseStats.getSpDef();
+        showBaseStats += "\nSpeed: " + baseStats.getSpeed();
+        return showBaseStats;
     }
 
     public String showAllPokemon(List<Pokemon> pokemonList){
         String pokedexEntries =  "=================POKEDEX=================\n";
         for (Pokemon pokemon : pokemonList) {
+            String ability = pokemon.getAbilities().getAbility();
+            String hiddenAbility = pokemon.getAbilities().getHiddenAbility();
             pokedexEntries += "Entry ID: " + pokemon.getId() + "\n";
             pokedexEntries += "Name: " + pokemon.getName() + "\n";
             pokedexEntries += "Type: " + pokemon.getType() + "\n";
@@ -109,7 +154,10 @@ public class PokemonServiceImpl implements PokemonService{
             pokedexEntries += "Species: " + pokemon.getSpecies() + "\n";
             pokedexEntries += "Height: " + pokemon.getHeight() + " feet\n";
             pokedexEntries += "Weight: " + pokemon.getWeight() + " kg\n";
-            pokedexEntries += "-----------------------------------------\n";
+            pokedexEntries += "Ability: " + ability + "\n";
+            pokedexEntries += "Hidden Ability: " + hiddenAbility + "\n";
+            pokedexEntries += getStringBaseStats(pokemon.getBaseStats());
+            pokedexEntries += "\n-----------------------------------------\n";
         }
         return pokedexEntries;
     }
