@@ -7,7 +7,7 @@ used for this project is MongoDB NoSQL.
 ## Dependencies:
   - Spring Data MongoDB
   - Spring Web
-  - Spring Boot DevTools
+  - Lombok
   
 ## Tech Stack:
   - Java
